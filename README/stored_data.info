@@ -1,0 +1,15 @@
+In questo file si tiene traccia dei dati contenuti in ciascuna colonna di dati nei vari file txt.
+Data la scelta di lavorare con tntuple non si è in grado di inserire nei file di dati nulla che non siano valori numerici.
+
+1. catena_elettronica.txt
+ - Vin (tensione in ingresso nel preamp)
+ - Vout (tensione in uscita dall'ampli)
+ - CHN (lettura sul multicanale)
+ - err_Vin
+ - err_Vout
+ - err_CHN
+
+2. spectrumCo60.txt
+ - centroide (CHN)
+ - FWHM (CHN)
+ 
