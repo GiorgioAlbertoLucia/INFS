@@ -18,9 +18,6 @@ using namespace std;
 
 void data_analysis1()
 {   
-
-    int nmisure = 10;
-
     TString name = "catena_elettronica";
     TString file_path = "../doc/" + name + ".root";
     TFile tfile(file_path);

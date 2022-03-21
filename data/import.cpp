@@ -15,13 +15,13 @@ using namespace std;
 
 void import()
 {
-    string str_file_path("catena_elettronica.txt");
+    string str_file_path("picco.txt");
 
     string::size_type idx = str_file_path.rfind('.');
     string str_name = str_file_path;
     if (idx != string::npos)    str_name.erase(idx, str_file_path.length());
 
-    string str_columns("Vin:Vout:CHN:err_Vin:err_Vout:err_CHN"); //
+    string str_columns("centroide:FWHM:valore_noto:dev_std"); //
 
     // string to TString
     TString file_path(str_file_path);
