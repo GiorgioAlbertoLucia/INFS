@@ -1,0 +1,3 @@
+Compton_plateau     582     0       24      0
+Backscatter         133     0       21      0
+X-Rays_Pb           51.25   12.1803 0.62    0

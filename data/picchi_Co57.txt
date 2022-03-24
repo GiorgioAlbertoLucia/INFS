@@ -1,0 +1,2 @@
+Compton_plateau     65          0           5       0
+X-Rays_Pb           51.72       4.7035      0.62    0

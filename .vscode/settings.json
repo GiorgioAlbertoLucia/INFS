@@ -83,6 +83,7 @@
         "NaIresolution-1.C": "cpp",
         "BJT_data.C": "cpp",
         "fitExamples.C": "cpp",
-        "Transistor1.C": "cpp"
+        "Transistor1.C": "cpp",
+        "BJT.C": "cpp"
     }
 }

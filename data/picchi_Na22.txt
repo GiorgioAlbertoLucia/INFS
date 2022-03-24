@@ -1,0 +1,5 @@
+peak_(II)           762.70      45.7691     0.62        0
+Compton_plateau(I)  218         0           18          0
+Compton_plateau(II) 641         0           32          0
+Backscatter(I)      112         0           15          0
+X-Rays_Pb           51.80       9.5857      0.62        0

@@ -37,3 +37,9 @@ Gruppo B1:
 
 
 3. Procedura seguita
+
+    Attività del materiale: 
+    - rivelatore posizionato a 9.05 cm dalla sorgente (calibro)
+    - misurazione sul Cs137 - C29 -> t = 300 s
+    - misurazione sul Cs137 - C42 -> t = 300 s  --sorgente nota
+    - area considerata (range asse x): 353 - 445 CHN

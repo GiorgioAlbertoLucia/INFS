@@ -11,13 +11,15 @@
 #include <fstream>
 #include <sstream>
 #include <vector>
-#include <string>
+#include <string> 
 #include <chrono>
 
 using namespace std;
 
 void data_analysis1()
 {   
+    //////////////// VERIFICA DELLA LINEARITÀ DELLA CATENA ELETTRONICA
+
     TString name = "catena_elettronica";
     TString file_path = "../doc/" + name + ".root";
     TFile tfile(file_path);

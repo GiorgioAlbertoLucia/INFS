@@ -17,12 +17,6 @@
 
 using namespace std;
 
-float conversionCHNtoE(const float chn, const float a, const float b, const float c = 0.)
-{   
-    float E = a + b * chn + c * chn * chn;
-    return E;
-}
-
 void data_analysis2()
 {
     TString name = "spectrumCo60";
@@ -34,26 +28,31 @@ void data_analysis2()
     if (tntuple)    tntuple->Print();
     else cerr << "Could not find the TNtuple in: " << gDirectory->GetName() << endl;
     
-    tntuple->Draw("centroide>>hist");
+    tntuple->Draw("centroid>>hist");
     TH1F * hist = (TH1F*)gDirectory->Get("hist");
 
-    float mean_centr1 = hist->GetMean();
-    float std_dev1 = hist->GetStdDev();
+    float mean_centr = hist->GetMean();
+    float std_dev = hist->GetStdDev();
 
-    cout << mean_centr1 << endl;
-    cout << std_dev1 << endl;
+    // usando semidisp. max sugli ultimi due dati
+    float std_dev_new = (799.19 - 797.95) / 2;  
 
+    tntuple->Draw("FWHM>>FWHM_hist");
+    TH1F * FWHM_hist = (TH1F*)gDirectory->Get("FWHM_hist");
 
-    TString name1 = "picco";
-    TString file_path1 = "../doc/" + name1 + ".root";
-    TFile tfile1(file_path1);
+    cout << endl << "std dev FWHM = " << FWHM_hist->GetStdDev() << endl;
 
-    gDirectory->GetObject("picco", tntuple);
+    name = "picco_calib";
+    file_path = "../doc/" + name + ".root";
+    tfile.Close();
+    tfile.Open(file_path);
+
+    gDirectory->GetObject(name, tntuple);
     if (tntuple)    tntuple->Print();
     else cerr << "Could not find the TNtuple in: " << gDirectory->GetName() << endl;
 
     TCanvas * canvas1 = new TCanvas("Vin", "Vout", 500, 5, 500, 600);
-    
+
     ////////////////// FIT 1 ///////////////////////
     TF1 * tf1 = new TF1("tf1", "[0]*x+[1]", 0, 15);
     tf1->SetParameter(0, -0.02);
@@ -88,4 +87,28 @@ void data_analysis2()
     cout << "Chi^2:" << tf2->GetChisquare() << ", number of DoF: " << tf2->GetNDF() << 
     " (Probability: " << tf2->GetProb() << ")." << endl;
 
+    float a = tf2->GetParameter(0);
+    float b = tf2->GetParameter(1);
+    float c = tf2->GetParameter(2);
+    float err_a = tf2->GetParError(0);
+    float err_b = tf2->GetParError(1);
+    float err_c = tf2->GetParError(2);
+
+    float CHN;
+    vector<float> E;
+    vector<float> err_E;
+    tntuple->SetBranchAddress("centroide", &CHN);
+    for(Int_t i = 0; i < tntuple->GetEntries(); i++)   
+    {
+        tntuple->GetEvent(i);
+        float Ei = a + b * CHN + c * CHN * CHN;
+        E.push_back(Ei);
+        float err_Ei = sqrt(err_a*err_a + CHN*err_b*err_b + CHN*CHN*err_c*err_c + (b + c*CHN)*std_dev_new*std_dev_new);
+        err_E.push_back(err_Ei);
+    }
+
+    cout << "Energies: " << endl;
+    for(vector<float>::const_iterator i = E.begin(); i != E.end(); i++) cout << *i << "MeV" << endl;
+    cout << "Error on Energies: " << endl;
+    for(vector<float>::const_iterator i = err_E.begin(); i != err_E.end(); i++) cout << *i << "MeV" << endl;
 }

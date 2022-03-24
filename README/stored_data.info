@@ -9,12 +9,60 @@ Data la scelta di lavorare con tntuple non si è in grado di inserire nei file d
  - err_Vout
  - err_CHN
 
-2. spectrumCo60.txt (valori presi dall'osservazione dello spettro di emissione di un isotopo di Co60)
+2. spectrumCo60.txt (valori presi dall'osservazione dello spettro di emissione di un isotopo di Co60) -- manual
  - centroide (CHN)
  - FWHM (CHN)
+
+2.x spectrumXxXX.txt -- software
+ - Channel (CHN)
+ - Data (= counts)
  
 3. picco.txt (valori dei picchi fotoelettrici per Co60 - due valori -, Cs137, Na22, Co57)
  - centroide (CHN)
  - FWHM (CHN)
  - valore noto del picco (MeV)
  - dev std sulle misure spettroscopiche del Co60 (valori del punto 2.)
+
+4. picchi_Na
+    peak(I) ~ 0.511 MeV     peak(II) ~ 1.27 MeV
+    I picchi sono in ordine i seguenti: Na22 (picco fotoel: ~1.27 MeV attesi) - spalla Compton (relativo picco 0.511 MeV) - 
+    spalla Compton (relativo picco ~1.27 Mev) - backscatter (relativo picco 0.511 MeV) - raggi X piombo
+ - centroide (CHN)
+ - FWHM (CHN)
+ - error (CHN)
+
+5. picchi_Co60
+    I picchi sono in ordine i seguenti: spalla Compton - backscatter - raggi X piombo
+ - centroide (CHN)
+ - FWHM (CHN)
+ - error (CHN)
+
+6. picchi_Cs137
+    I picchi sono in ordine i seguenti: spalla Compton - backscatter - raggi X piombo - (al momento sconosciuto)
+ - centroide (CHN)
+ - FWHM (CHN)
+ - error (CHN)
+
+7. picchi_Co57
+    I picchi sono in ordine i seguenti: spalla Compton - raggi X piombo 
+ - centroide (CHN)
+ - FWHM (CHN)
+ - error (CHN)
+
+8. picchi_sasso
+    I picchi sono in ordine i seguenti: picco 1 (raggi X) - picco 2 - picco 3 - picco 4 - picco 5 - picco 6
+ - centroide (CHN)
+ - FWHM (CHN)
+ - error (CHN)
+
+8. picchi_fondo
+    I picchi sono in ordine i seguenti: picco 1 - picco 2
+ - centroide (CHN)
+ - FWHM (CHN)
+ - error (CHN)
+
+9. attivita.txt
+    I valori sono relativi alle sorgenti Cs137 - C42, Cs137 - C29
+ - total_count (anche al do fuori della regione scelta)
+ - net_area
+ - live_time
