@@ -132,7 +132,7 @@ void data_analysis5()
     Long64_t N1 = tree->Draw("x:R:err_x:err_R", "", "goff");
     TGraphErrors * graph1 = new TGraphErrors(N1, tree->GetV1(), tree->GetV2(), tree->GetV3(), tree->GetV4());
     graph1->GetXaxis()->SetTitle("X [g*mm^{-2}]");
-    graph1->GetYaxis()->SetTitle("R [s-1]");
+    graph1->GetYaxis()->SetTitle("R [s^{-1}]");
     
     graph1->Fit(tf1, "m");
     graph1->Draw("ap");
@@ -140,6 +140,9 @@ void data_analysis5()
 
     cout << "Chi^2:" << tf1->GetChisquare() << ", number of DoF: " << tf1->GetNDF() << 
     " (Probability: " << tf1->GetProb() << ")." << endl;
+
+    float ref_mi_rho = 0.1035;
+    z_test(tf1->GetParameter("mi/rho"), ref_mi_rho, tf1->GetParError(1));
 
     tfile.Close();
 }
