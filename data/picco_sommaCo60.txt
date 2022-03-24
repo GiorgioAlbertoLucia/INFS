@@ -1,3 +1,2 @@
-1325        946         1765.01     
-133.369     105.316     1765.01      
-185.021      113.137    1765.01 
+gross_area sum  net_area sum    gross_area II photoel   net_area II photoel gross_area I photoel    net_area II photoel     live_time
+2322            1632            220053                  170000              304464                  186672                  2907.31      

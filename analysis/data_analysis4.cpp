@@ -34,7 +34,7 @@ void data_analysis1()
     float tau = log(2) *halflife_time; 
     float t = 5;
 
-    float N_0 = Aref_2017 * tau;
+    float N_0 = Aref_2004 * tau;
     float err_N_0 = tau * err_Aref_2004; 
 
     float Net_Area;
