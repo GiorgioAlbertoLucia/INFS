@@ -39,7 +39,7 @@ void data_analysis1()
     graph1->GetXaxis()->SetTitle("Vin [V]");
     graph1->GetYaxis()->SetTitle("Vout [V]");
     
-    graph1->Fit(tf1);
+    graph1->Fit(tf1, "ER");
     graph1->Draw("ap");
     canvas1->SaveAs("../graphs/linearità1.jpg");
     
@@ -54,7 +54,7 @@ void data_analysis1()
     graph2->GetXaxis()->SetTitle("Vin [V]");
     graph2->GetYaxis()->SetTitle("CHN");
     
-    graph2->Fit(tf2);
+    graph2->Fit(tf2, "ER");
     graph2->Draw("ap");
     canvas1->SaveAs("../graphs/linearità2.jpg");
     cout << "Chi^2:" << tf2->GetChisquare() << ", number of DoF: " << tf2->GetNDF() 

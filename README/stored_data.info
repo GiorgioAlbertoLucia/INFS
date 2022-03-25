@@ -17,11 +17,11 @@ Data la scelta di lavorare con tntuple non si è in grado di inserire nei file d
  - Channel (CHN)
  - Data (= counts)
  
-3. picco.txt (valori dei picchi fotoelettrici per Co60 - due valori -, Cs137, Na22, Co57)
+3. picco_calib.txt (valori dei picchi fotoelettrici per Co60 - due valori -, Cs137, Na22, Co57)
  - centroide (CHN)
  - FWHM (CHN)
  - valore noto del picco (MeV)
- - dev std sulle misure spettroscopiche del Co60 (valori del punto 2.)
+ - semidispersione massima (valori del punto 2.)
 
 4. picchi_Na
     peak(I) ~ 0.511 MeV     peak(II) ~ 1.27 MeV

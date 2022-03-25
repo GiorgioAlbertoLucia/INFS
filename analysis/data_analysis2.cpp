@@ -2,11 +2,11 @@
 #include <TH1D.h>
 #include <TString.h>
 #include <TSystem.h>
-#include <TNtuple.h>
 #include <TCanvas.h>
 #include <TF1.h>
 #include <TH1F.h>
 #include <TGraphErrors.h>
+#include <TTree.h>
 
 #include <iostream>
 #include <fstream>
@@ -23,12 +23,12 @@ void data_analysis2()
     TString file_path = "../doc/" + name + ".root";
     TFile tfile(file_path);
 
-    TNtuple * tntuple;
-    gDirectory->GetObject("spectrumCo60", tntuple);
-    if (tntuple)    tntuple->Print();
-    else cerr << "Could not find the TNtuple in: " << gDirectory->GetName() << endl;
+    TTree * tree;
+    gDirectory->GetObject("spectrumCo60", tree);
+    if (tree)    tree->Print();
+    else cerr << "Could not find the Ttree in: " << gDirectory->GetName() << endl;
     
-    tntuple->Draw("centroid>>hist");
+    tree->Draw("centroid>>hist");
     TH1F * hist = (TH1F*)gDirectory->Get("hist");
 
     float mean_centr = hist->GetMean();
@@ -37,7 +37,7 @@ void data_analysis2()
     // usando semidisp. max sugli ultimi due dati
     float std_dev_new = (799.19 - 797.95) / 2;  
 
-    tntuple->Draw("FWHM>>FWHM_hist");
+    tree->Draw("FWHM>>FWHM_hist");
     TH1F * FWHM_hist = (TH1F*)gDirectory->Get("FWHM_hist");
 
     cout << endl << "std dev FWHM = " << FWHM_hist->GetStdDev() << endl;
@@ -47,9 +47,9 @@ void data_analysis2()
     tfile.Close();
     tfile.Open(file_path);
 
-    gDirectory->GetObject(name, tntuple);
-    if (tntuple)    tntuple->Print();
-    else cerr << "Could not find the TNtuple in: " << gDirectory->GetName() << endl;
+    gDirectory->GetObject(name, tree);
+    if (tree)    tree->Print();
+    else cerr << "Could not find the Ttree in: " << gDirectory->GetName() << endl;
 
     TCanvas * canvas1 = new TCanvas("Vin", "Vout", 500, 5, 500, 600);
 
@@ -58,8 +58,8 @@ void data_analysis2()
     tf1->SetParameter(0, -0.02);
     tf1->SetParameter(1, 0.0017);
 
-    Long64_t N1 = tntuple->Draw("centroide:valore_noto:dev_std", "", "goff");
-    TGraphErrors * graph1 = new TGraphErrors(N1, tntuple->GetV1(), tntuple->GetV2(), tntuple->GetV3());
+    Long64_t N1 = tree->Draw("centroide:valore_noto:dev_std", "", "goff");
+    TGraphErrors * graph1 = new TGraphErrors(N1, tree->GetV1(), tree->GetV2(), tree->GetV3());
     graph1->GetXaxis()->SetTitle("centroide [CHN]");
     graph1->GetYaxis()->SetTitle("E [MeV]");
     
@@ -76,7 +76,7 @@ void data_analysis2()
     tf2->SetParameter(0, -0.02);
     tf2->SetParameter(1, 0.0017);
 
-    TGraphErrors * graph2 = new TGraphErrors(N1, tntuple->GetV1(), tntuple->GetV2(), tntuple->GetV3());
+    TGraphErrors * graph2 = new TGraphErrors(N1, tree->GetV1(), tree->GetV2(), tree->GetV3());
     graph2->GetXaxis()->SetTitle("centroide [CHN]");
     graph2->GetYaxis()->SetTitle("E [MeV]");
     
@@ -97,10 +97,10 @@ void data_analysis2()
     float CHN;
     vector<float> E;
     vector<float> err_E;
-    tntuple->SetBranchAddress("centroide", &CHN);
-    for(Int_t i = 0; i < tntuple->GetEntries(); i++)   
+    tree->SetBranchAddress("centroide", &CHN);
+    for(Int_t i = 0; i < tree->GetEntries(); i++)   
     {
-        tntuple->GetEvent(i);
+        tree->GetEvent(i);
         float Ei = a + b * CHN + c * CHN * CHN;
         E.push_back(Ei);
         float err_Ei = sqrt(err_a*err_a + CHN*err_b*err_b + CHN*CHN*err_c*err_c + (b + c*CHN)*std_dev_new*std_dev_new);

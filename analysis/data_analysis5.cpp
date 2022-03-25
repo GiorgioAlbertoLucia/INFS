@@ -150,7 +150,7 @@ void data_analysis5()
     
     graph1->Fit(tf1, "m");
     graph1->Draw("ap");
-    canvas1->SaveAs("../graphs/rate.png");
+    canvas1->SaveAs("../graphs/rate_x.png");
 
     cout << "Chi^2:" << tf1->GetChisquare() << ", number of DoF: " << tf1->GetNDF() << 
     " (Probability: " << tf1->GetProb() << ")." << endl;
@@ -173,7 +173,7 @@ void data_analysis5()
     
     graph2->Fit(tf2, "m");
     graph2->Draw("ap");
-    canvas1->SaveAs("../graphs/rate.png");
+    canvas1->SaveAs("../graphs/rate_X.png");
 
     cout << "Chi^2:" << tf2->GetChisquare() << ", number of DoF: " << tf2->GetNDF() << 
     " (Probability: " << tf2->GetProb() << ")." << endl;
