@@ -19,6 +19,29 @@
 using namespace std;
 
 /**
+ * @brief This function add a column of floats (with their description as top line) to an existing .txt file
+ * @param file_name path to the file
+ * @param col_name description of the column data
+ * @param column data to add in the column
+ */
+void append_column(const char * file_name, const char * col_name, vector<float> column)
+{
+    fstream file(file_name, ios::in);
+    string line;
+    vector<string> file_lines;
+    while(getline(file, line))  file_lines.push_back(line);     // fill a vector with the file content
+    file.close();
+
+    file.open(file_name, ios::out);
+    for (int i = 0; i < file_lines.size(); i++)
+    {
+        if (i == 0)     file << file_lines.at(i) << "\t\t" << col_name << endl;
+        else            file << file_lines.at(i) << "\t\t\t" << column.at(i-1) << endl;                          
+    }
+    file.close();
+}
+
+/**
  * @brief This function adds a TBranch to an existing tree. The new branch contains energies and the error on said energies,
  * whereas the existing tree shoiuld contain the channel information the energies are evaluated from (parameters of the 
  * conversion are results of a previous interpolation).
@@ -26,16 +49,17 @@ using namespace std;
  */
 void add_energies(const char * name)
 {   
-    ifstream infile(name);
+    fstream file(name, fstream::in);
 
     vector<string> peak_name;
     vector<float> chn_centroid, FWHM, err_centroid, ref_E;
     string entry1;
-    float entry2, entry3, entry4, entry5;
-    string line;
-    getline(infile, line);                                            // skip first line
+    float entry2, entry3, entry4, entry5, entry6, entry7;
 
-    while (infile >> entry1 >> entry2 >> entry3 >> entry4 >> entry5)
+    string line;                                                    // first line
+    getline(file, line);                                            // skip first line
+
+    while (file >> entry1 >> entry2 >> entry3 >> entry4 >> entry5 >> entry6 >> entry7)
     {
         peak_name.push_back(entry1);
         chn_centroid.push_back(entry2);
@@ -44,10 +68,10 @@ void add_energies(const char * name)
         ref_E.push_back(entry5);
     }
 
-    cout << endl << "Dati:" << endl;
+    cout << endl << "Dati da " << name << endl << line << endl;
     for (int i = 0; i < chn_centroid.size(); i++)   
-        cout << peak_name.at(i) << "\t\t" << chn_centroid.at(i) << "\t\t" 
-        << FWHM.at(i) << "\t\t" << err_centroid.at(i) << ref_E.at(i) << endl;
+        cout << peak_name.at(i) << "\t\t\t" << chn_centroid.at(i) << "\t\t\t" << FWHM.at(i) << 
+        "\t\t\t" << err_centroid.at(i) << "\t\t\t" << ref_E.at(i) << endl;
     cout << endl;
 
     vector<float> E, err_E;
@@ -67,20 +91,12 @@ void add_energies(const char * name)
         E.push_back(Ei);
         err_E.push_back(err_Ei);
     }
-    infile.close();
+    file.close();
 
-    ofstream outfile(name);
-    string E_name("E"), err_E_name("err_E");
-    if(line.find(E_name) == string::npos)
-    {
-        outfile << E_name << "\n";
-        for (vector<float>::const_iterator i = E.begin(); i != E.end(); i++)    outfile << *i << "\n";
-    }
-    if(line.find(err_E_name) == string::npos)
-    {
-        outfile << err_E_name << "\n";
-        for (vector<float>::const_iterator i = err_E.begin(); i != err_E.end(); i++)    outfile << *i << "\n";
-    }
+    // if there are no columns named E and err_E, respective values are appended to the file
+    string str_E("E"), str_err_E("err_energy");
+    if(line.find(str_E) == string::npos)        append_column(name, "E", E);
+    if(line.find(str_err_E) == string::npos)    append_column(name, "err_energy", err_E);
 }
 
 /**
@@ -107,37 +123,25 @@ void z_test(const float exp_value, const float ref_value, const float err)
  * @param err_branch name of the branch where the experimental uncertainties are stored
  * @param name_branch name of the branch where the description of the data in the line is stored
  */
-/*
 void z_test_branch(const char * file_name)
 {
-    TString name = file_name;
-    TString file_path = "../doc/" + name + ".root";
-    TFile tfile(file_path, "update");
+    ifstream file(file_name);
 
-    //TTree * tree = (TTree*)tfile.Get("tree");
-    TTree * tree;
-    gDirectory->GetObject(name, tree);
-    if (tree)    tree->Print();
-    else cerr << "Could not find the tree in: " << gDirectory->GetName() << endl;
+    string name;
+    float entry1, entry2, entry3, ref, exp, err;
 
-    char * bname[1000];
-    float exp;
-    float ref;
-    float err;
-    tree->SetBranchAddress("peak_name", bname); 
-    tree->SetBranchAddress("E", &exp);
-    tree->SetBranchAddress("ref_E", &ref);
-    tree->SetBranchAddress("err_E", &err);
-    cout << endl;
-    for(Long64_t i = 0; i < tree->GetEntries(); i++)   
+    string line;
+    getline(file, line);    // skip first line
+
+    cout << endl << "test z dal file " << file_name << endl;
+    while (file >> name >> entry1 >> entry2 >> entry3 >> ref >> exp >> err)
     {
-        tree->GetEvent(i);
-        //cout << * bname << "\t";
+        cout << name << "\t";
         z_test(exp, ref, err);
     }
-    tfile.Close();
+    file.close();
 }
-*/
+
 
 
 
@@ -151,12 +155,12 @@ void analysis3()
     add_energies("../data/picchi_fondo.txt");
     add_energies("../data/picchi_sasso.txt");
 
-    /*
-    z_test_branch("../data/picchi_Na22");
-    z_test_branch("../data/picchi_Co57");
-    z_test_branch("../data/picchi_Co60");
-    z_test_branch("../data/picchi_Cs137");
-    z_test_branch("../data/picchi_fondo");
-    z_test_branch("../data/picchi_sasso");
-    */
+    
+    z_test_branch("../data/picchi_Na22.txt");
+    z_test_branch("../data/picchi_Co57.txt");
+    z_test_branch("../data/picchi_Co60.txt");
+    z_test_branch("../data/picchi_Cs137.txt");
+    z_test_branch("../data/picchi_fondo.txt");
+    z_test_branch("../data/picchi_sasso.txt");
+    
 }

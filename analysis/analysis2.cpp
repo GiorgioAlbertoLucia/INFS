@@ -16,7 +16,7 @@
 
 using namespace std;
 
-void analysis1()
+void analysis2()
 {   
     gROOT->SetStyle("Plain");
     gStyle->SetOptFit(1111);
