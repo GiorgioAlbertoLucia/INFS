@@ -54,24 +54,24 @@ void z_test(const float exp_value, const float ref_value, const float err)
 
 void analysis4()
 {   
+    freopen("../output/analysis4.txt", "w", stdout);
     fstream file("../data/attivita.txt", fstream::in);
 
     vector<string> element;
-    vector<float> total_count, net_area, err_net_area, live_time, err_live_time;
+    vector<float> total_count, net_area, live_time, err_live_time;
     string entry1;
-    float entry2, entry3, entry4, entry5, entry6;
+    float entry2, entry3, entry4, entry5, entry6, entry7, entry8;
 
     string line;                                                    // first line
     getline(file, line);                                            // skip first line
 
-    while (file >> entry1 >> entry2 >> entry3 >> entry4 >> entry5 >> entry6)
+    while (file >> entry1 >> entry2 >> entry3 >> entry4 >> entry5 >> entry6 >> entry7 >> entry8)
     {
         element.push_back(entry1);
         total_count.push_back(entry2);
         net_area.push_back(entry3);
-        err_net_area.push_back(entry4);
-        live_time.push_back(entry5);
-        err_live_time.push_back(entry6);
+        live_time.push_back(entry4);
+        err_live_time.push_back(entry5);
     }
 
     float ref_A = 37;                       // kBq = s^-1
@@ -84,11 +84,13 @@ void analysis4()
     float N_0 = ref_A * tau * 24 * 3600;    // convert days in seconds
     float err_N_0 = err_ref_A * tau * 24 * 3600; 
 
-    vector<float> R, err_R;            //rate
-    float rate, err_rate;
-
+    vector<float> err_net_area, R, err_R;            //rate
+    float err_net, rate, err_rate;
+    
     for (int i = 0; i < element.size(); i++)
-    {
+    {   
+        err_net = sqrt(net_area.at(i) + total_count.at(i));
+        err_net_area.push_back(err_net);
         if(element.at(i) == string("Cs137-C42"))
         {
             rate = net_area.at(i) / live_time.at(i);
@@ -105,9 +107,10 @@ void analysis4()
         err_R.push_back(err_rate);
     }
 
-    string str_R("R"), str_err_R("err_rate");
-    if(line.find(str_R) == string::npos)        append_column("../data/attivita.txt", "R", R);
-    if(line.find(str_err_R) == string::npos)    append_column("../data/attivita.txt", "err_rate", err_R);
+    string str_err_net_area("err_net_area"), str_R("R"), str_err_R("err_rate");
+    if(line.find(str_err_net_area) == string::npos) append_column("../data/attivita.txt", "err_net_area", err_net_area);
+    if(line.find(str_R) == string::npos)            append_column("../data/attivita.txt", "R", R);
+    if(line.find(str_err_R) == string::npos)        append_column("../data/attivita.txt", "err_rate", err_R);
     
     cout << endl << "Dati:" << endl << line << endl;
     for (int i = 0; i < element.size(); i++)   

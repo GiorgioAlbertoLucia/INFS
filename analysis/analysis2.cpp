@@ -5,7 +5,6 @@
 #include <TStyle.h>
 #include <TROOT.h>
 #include <TH1.h>
-#include <TStyle.h>
 
 #include <iostream>
 #include <fstream>
@@ -18,6 +17,7 @@ using namespace std;
 
 void analysis2()
 {   
+    //freopen("../output/analysis2.txt", "w", stdout);
     gROOT->SetStyle("Plain");
     gStyle->SetOptFit(1111);
 
@@ -54,7 +54,7 @@ void analysis2()
     
     graph1->Fit(tf1);
     graph1->Draw("ap");
-    canvas1->SaveAs("../graphs/calibrazione_quadr.png");
+    canvas1->SaveAs("../graphs/calibrazione.png");
     
     cout << "Chi^2:" << tf1->GetChisquare() << ", number of DoF: " << tf1->GetNDF() << 
     " (Probability: " << tf1->GetProb() << ")." << endl;

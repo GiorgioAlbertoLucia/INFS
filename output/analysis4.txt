@@ -1,0 +1,5 @@
+
+Dati:
+element     total_count     net_area    live_time   err_live_time   err_net_area	R		    err_rate
+Cs137-C42	98114	        26233	    300	        0.01	        352.629	        87.4433     1.17543
+Cs137-C29	62767	        16010	    300	        0.01	        280.672	        53.3667     0.935576

@@ -1,0 +1,17 @@
+
+Dati:
+chn_entroid[CHN]  FWHM[CHN]   ref_centroid[MeV] err_centroid[CHN]
+799.19		      41.5572	   0.62			      1.333
+704.21		      38.3889	   0.62			      1.173
+404.96		      30.1233	   0.62			      0.6617
+315.49		      25.8185	   0.62			      0.511
+82.51		         0.368323 	0.62			      0.1221
+
+ FCN=4.73539 FROM MIGRAD    STATUS=CONVERGED      93 CALLS          94 TOTAL
+                     EDM=3.08617e-09    STRATEGY= 1  ERROR MATRIX UNCERTAINTY   1.2 per cent
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0          -1.50904e-02   1.52583e-03   1.08006e-06  -5.92528e-02
+   2  p1           1.65597e-03   8.15871e-06  -8.10726e-09  -6.79977e+01
+   3  p2           4.05620e-08   8.80029e-09   9.90443e-12  -6.21365e+04
+Chi^2:4.73539, number of DoF: 2 (Probability: 0.0936963).

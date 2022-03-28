@@ -1,0 +1,31 @@
+
+Dati:
+n_spessori  x[cm]    err_x[cm]   gross_area  net_area live_time[s]   err_live_time[s]	err_net		   R[kBq]		err_rate[kBq]  rel_e_rate  X[g/cm^2]	err_X[g/cm^2]
+0		      0	      0		      10590		   9409		120		      0.01		         141.418	      0.0784083   0.0011785		0.0150303   0		      0
+2		      0.42     0.02		   10779		   9391		189.42		   0.01		         142.021		   0.0495777	0.000749773		0.0151232	4.7628		0.2268
+4		      0.84     0.04		   11083		   9214		307.02		   0.01		         142.468		   0.0300111	0.000464034		0.0154621	9.5256		0.4536
+6		      1.26     0.06		   8793		   6563		387.29		   0.01		         123.919		   0.016946		0.000319966		0.0188815	14.2884		0.6804
+8		      1.68     0.08		   8461		   6436		568.7		      0.01		         122.053		   0.011317		0.000214618		0.0189642	19.0512		0.9072
+10		      2.1      0.1		   8578		   6489		892.15		   0.01		         122.748		   0.00727344  0.000137586		0.0189163	23.814		1.134
+
+ FCN=2.08275 FROM HESSE     STATUS=OK             10 CALLS         145 TOTAL
+                     EDM=1.45211e-09    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  R_{0}        7.87449e-02   1.09677e-03   1.66112e-07   4.34266e-02
+   2  #mi          1.15335e+00   2.95134e-02   4.46954e-06  -1.89784e-03
+Chi^2:2.08275, number of DoF: 4 (Probability: 0.720541).
+
+Test z su mi: 
+0.101707 +/- 0.00260259	0.1035	-0.689099	True
+
+ FCN=2.08275 FROM HESSE     STATUS=OK             10 CALLS          74 TOTAL
+                     EDM=2.39315e-09    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  R_{0}        7.87449e-02   1.09678e-03   1.66124e-07   2.85933e-02
+   2  #frac{#mi}{#rho}   1.01707e-01   2.60260e-03   3.94138e-07  -3.00079e-02
+Chi^2:2.08275, number of DoF: 4 (Probability: 0.720541).
+
+Test z su mi/rho: 
+0.101707 +/- 0.0295134	0.1035	-0.0607682	True

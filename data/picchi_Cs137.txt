@@ -1,5 +1,5 @@
-peak_name           chn_centroid    FWHM        err_centroid    ref_energy		E		    err_energy
-Compton_plateau     299             0           17              0		        0.483671	0.0718563
-Backscatter         120             0           10              0		        0.18421		0.0463147
-X-Rays_Pb           51.31           10.4401     0.62            0		        0.0699842	0.0407321
-unknown             22.11           5.2812      0.62            0		        0.0215429	0.0407265
+peak_name           chn_centroid    FWHM        err_centroid    ref_energy				E		err_energy
+Compton_plateau     299             0           17              0.4773736814458115		        			0.483671			0.0718563
+Backscatter         120             0           10              0.18432631855418846		        			0.18421			0.0463147
+X-Rays_Pb           51.31           10.4401     0.62            0.074		        			0.0699842			0.0407321
+unknown             22.11           5.2812      0.62            0		        			0.0215429			0.0407265

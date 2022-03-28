@@ -68,12 +68,6 @@ void add_energies(const char * name)
         ref_E.push_back(entry5);
     }
 
-    cout << endl << "Dati da " << name << endl << line << endl;
-    for (int i = 0; i < chn_centroid.size(); i++)   
-        cout << peak_name.at(i) << "\t\t\t" << chn_centroid.at(i) << "\t\t\t" << FWHM.at(i) << 
-        "\t\t\t" << err_centroid.at(i) << "\t\t\t" << ref_E.at(i) << endl;
-    cout << endl;
-
     vector<float> E, err_E;
 
     float a = -1.50904e-02;
@@ -91,6 +85,13 @@ void add_energies(const char * name)
         E.push_back(Ei);
         err_E.push_back(err_Ei);
     }
+
+
+    cout << endl << "Dati da " << name << endl << line << endl;
+    for (int i = 0; i < chn_centroid.size(); i++)   
+        cout << peak_name.at(i) << "\t\t\t" << chn_centroid.at(i) << "\t\t\t" << FWHM.at(i) << 
+        "\t\t\t" << err_centroid.at(i) << "\t\t\t" << ref_E.at(i)  << "\t\t\t" << E.at(i) << "\t\t\t" << err_E.at(i) << endl;
+    cout << endl;
     file.close();
 
     // if there are no columns named E and err_E, respective values are appended to the file
@@ -147,6 +148,7 @@ void z_test_branch(const char * file_name)
 
 void analysis3()
 {
+    //freopen("../output/analysis3.txt", "w", stdout);
     
     add_energies("../data/picchi_Na22.txt");
     add_energies("../data/picchi_Co57.txt");
@@ -161,6 +163,5 @@ void analysis3()
     z_test_branch("../data/picchi_Co60.txt");
     z_test_branch("../data/picchi_Cs137.txt");
     z_test_branch("../data/picchi_fondo.txt");
-    z_test_branch("../data/picchi_sasso.txt");
-    
+    z_test_branch("../data/picchi_sasso.txt"); 
 }
