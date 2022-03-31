@@ -1,6 +1,6 @@
 
 Dati:
-chn_entroid[CHN]  FWHM[CHN]   ref_centroid[MeV] err_centroid[CHN]
+chn_entroid[CHN]  FWHM[CHN]   err_centroid[MeV] ref_centroid[MeV]
 799.19		      41.5572	   0.62			      1.333
 704.21		      38.3889	   0.62			      1.173
 404.96		      30.1233	   0.62			      0.6617

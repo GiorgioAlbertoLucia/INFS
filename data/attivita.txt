@@ -1,3 +1,3 @@
-element     total_count net_area    live_time   err_live_time   err_net_area	R		    err_rate
-Cs137-C42   98114       26233       300         0.01			313.273			0.0874433	1.04424
-Cs137-C29   62767       16010       300         0.01    		250.565			0.0533667	0.835218
+element     gross_area  net_area    live_time   err_live_time
+Cs137-C42	27781	    26280	    300	        0.01	        
+Cs137-C29	17152	    16060	    300	        0.01	        

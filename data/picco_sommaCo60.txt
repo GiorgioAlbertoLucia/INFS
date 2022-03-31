@@ -1,2 +1,4 @@
-gross_area sum  net_area sum    gross_area II photoel   net_area II photoel gross_area I photoel    net_area II photoel     live_time
-2322            1632            220053                  170000              304464                  186672                  2907.31      
+peak            gross_area      net_area        live_time
+I_photoel       304464          186672          2907.31
+II_photoel      220053          170000          2907.31
+sum             2322            1632            2907.31                                                                                     

@@ -1,5 +1,33 @@
 
 Dati:
-element     total_count     net_area    live_time   err_live_time   err_net_area	R		    err_rate
-Cs137-C42	98114	        26233	    300	        0.01	        352.629	        87.4433     1.17543
-Cs137-C29	62767	        16010	    300	        0.01	        280.672	        53.3667     0.935576
+element     gross_area  net_area    live_time   err_live_time
+Cs137-C42	27781	26280	171.12	300	0.01	87.6	0.570407
+Cs137-C29	17152	16060	135.07	300	0.01	53.5333	0.450238
+
+Test z sull'attività della sorgente Cs137-C29 (in Bq)
+9755.63 +/- 4201.06	14355	-1.09481	True
+
+Valore sperimentale con errore (sopra è quello propagato)
+A = (9.75563 +/- 1.32241) kBq. 
+
+Valore attuale dell'attività (dato di riferimento)
+A = (14.355 +/- 3.9875) kBq. 
+Valori dell'attività calcolata con il metodo assoluto: 
+G approssimata: 0.298374 +/- 0.000907452
+Cs137-C42 attività (1.37998+/-56.0831) kBq
+Cs137-C29 attività (0.843322+/-34.5657) kBq
+G esatta: 0.162401 +/- 0.000197516
+Cs137-C42 attività (2.5354+/-102.797) kBq
+Cs137-C29 attività (1.54941+/-63.3596) kBq
+
+test z: Cs137-C42 -- G corretto 
+2535.4 +/- 2159.71	15963.8	-6.21766	False
+
+test z: Cs137-C29 -- G corretto 
+1549.41 +/- 3988	14355	-3.21103	False
+
+test z: Cs137-C42 -- G approssimato 
+1379.98 +/- 2157.99	15963.8	-6.75803	False
+
+test z: Cs137-C29 -- G approssimato 
+843.322 +/- 3987.65	14355	-3.38838	False

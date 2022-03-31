@@ -127,7 +127,7 @@ void analysis5()
     
     for (int i = 0; i < n_spessori.size(); i++)
     {   
-        entry8 = sqrt(net_area.at(i) + gross_area.at(i));
+        entry8 = sqrt(2*gross_area.at(i) - net_area.at(i));
         err_net_area.push_back(entry8);
         
         entry9 = net_area.at(i) / (live_time.at(i) * 1000); //kBq
@@ -181,6 +181,7 @@ void analysis5()
     graph1->Fit(tf1, "m");
     graph1->Draw("ap");
     canvas1->SaveAs("../graphs/rate_x.png");
+    canvas1->SaveAs("../graphs/rate_x.pdf");
 
     cout << "Chi^2:" << tf1->GetChisquare() << ", number of DoF: " << tf1->GetNDF() << 
     " (Probability: " << tf1->GetProb() << ")." << endl;
@@ -204,6 +205,7 @@ void analysis5()
     graph2->Fit(tf2, "m");
     graph2->Draw("ap");
     canvas2->SaveAs("../graphs/rate_x_rho.png");
+    canvas2->SaveAs("../graphs/rate_x_rho.pdf");
 
     cout << "Chi^2:" << tf2->GetChisquare() << ", number of DoF: " << tf2->GetNDF() << 
     " (Probability: " << tf2->GetProb() << ")." << endl;
