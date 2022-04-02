@@ -19,6 +19,20 @@
 using namespace std;
 
 
+/**
+ * @brief Gaussian test. The function prints the value of the variable Z and the result of the test
+ * @param exp_value 
+ * @param ref_value 
+ * @param err 
+ */
+void z_test(const float exp_value, const float ref_value, const float err)
+{
+    float z = (exp_value - ref_value) / err;
+    if (abs(z) < 1.96)  cout << exp_value << " +/- " << err << "\t" << ref_value << "\t"  << z << "\t" << "True" << endl;
+    else                cout << exp_value << " +/- " << err << "\t" << ref_value << "\t"  << z << "\t" << "False" << endl;
+}
+
+
 void analysis6()
 {   
     //freopen("../output/analysis5.txt", "w", stdout);
@@ -41,18 +55,39 @@ void analysis6()
         err_live_time.push_back(entry5);
     }
     
-    vector<float> err_net_area, Ssum1, err_Ssum1, Ssum2, err_Ssum2;            //rate - rel_err = relative error
-    float entry6, entry7, entry9, entry10;
-    float dt = 0.001;  // s
+    vector<float> err_net_area;
+    float entry6, Ssum1, err_Ssum1, Ssum2, err_Ssum2;            
+    float dt = 0.001;                   // s
+    float err_dt = 0.001;
+
+    float Aold = 19.9;                  // kBq
+    float err_Aold = 1;
+    float time = 1514 * 24 * 3600;      // s (from 30/1/2018 to 23/3/2022)
+    float halflife = 5.26*365*24*3600;  // s
+    float tau = log(2) * halflife;
+    float A = Aold * exp(-time/tau);
+    float err_A = err_Aold * exp(-time/tau);
+
+    cout << "A: " << A << " +/- " << err_A << endl;
     
     for (int i = 0; i < peak.size(); i++)
     {   
         entry6 = sqrt(2*gross_area.at(i) - net_area.at(i));
-        err_net_area.push_back(entry6);
-        
-        entry9 = net_area.at(i) / (live_time.at(i) * 1000); //kBq
-        
+        err_net_area.push_back(entry6);     
     }
+
+    Ssum1 = net_area.at(0) * net_area.at(1) / (A*1000 * live_time.at(0)); 
+    Ssum2 = net_area.at(0) * net_area.at(1) * dt / live_time.at(0);
+
+    err_Ssum1 = sqrt(pow(err_net_area.at(0)*net_area.at(1)/(A*1000*live_time.at(0)),2) + 
+                    pow(net_area.at(0)*err_net_area.at(1)/(A*1000*live_time.at(0)),2) + 
+                    pow(err_A*1000*net_area.at(0)*net_area.at(1)/(A*1000*A*1000*live_time.at(0)),2) +
+                    pow(err_live_time.at(0)*net_area.at(0)*net_area.at(1)/(A*1000*live_time.at(0)*live_time.at(0)),2));
+    err_Ssum2 = sqrt(pow(err_net_area.at(0)*net_area.at(1)*dt/live_time.at(0),2) + 
+                    pow(net_area.at(0)*err_net_area.at(1)*dt/live_time.at(0),2) + 
+                    pow(net_area.at(0)*net_area.at(1)*err_dt/live_time.at(0),2) +
+                    pow(err_live_time.at(0)*net_area.at(0)*net_area.at(1)*dt/(live_time.at(0)*live_time.at(0)),2));
+
     /*
     string str_err_net_area("err_net"), str_R("R[kBq]"), str_err_R("err_rate[kBq]"), str_rel_err_R("rel_e_rate"), 
             str_X("X[g/cm^2]"), str_err_X("err_X[g/cm^2]");
@@ -62,7 +97,7 @@ void analysis6()
     if(line.find(str_rel_err_R) == string::npos)    append_column("../data/coeff_ass.txt", "rel_e_rate", rel_err_R);
     if(line.find(str_X) == string::npos)            append_column("../data/coeff_ass.txt", "X[g/cm^2]", X);
     if(line.find(str_err_X) == string::npos)        append_column("../data/coeff_ass.txt", "err_X[g/cm^2]", err_X);
-    */
+    
 
     cout << endl << "Dati:" << endl << line << endl;
     for (int i = 0; i < n_spessori.size(); i++)   
@@ -70,34 +105,19 @@ void analysis6()
         << net_area.at(i) << "\t\t" << live_time.at(i) << "\t\t" << err_live_time.at(i) << "\t\t" << err_net_area.at(i) << "\t\t"
         << R.at(i) << "\t\t" << err_R.at(i) << "\t\t" << rel_err_R.at(i) << "\t\t" << X.at(i) << "\t\t" << err_X.at(i) << endl;
     cout << endl;
+    */
 
     file.close();
 
-    gROOT->SetStyle("Plain");
-    gStyle->SetOptFit(1111);
-    TCanvas * canvas1 = new TCanvas("canvas1", "R", 500, 500, 500, 600);
+    cout << endl << "Experimental value: " << net_area.at(2) << " +/- " << err_net_area.at(2) << endl;
 
-    ////////////////// FIT 1 ///////////////////////
-    TF1 * tf1 = new TF1("tf1", "[0]*exp(-[1]*x)", 0, 15);
-    tf1->SetParName(0, "R_{0}");
-    tf1->SetParName(1, "#mu");
-    tf1->SetParameters(78.6, 0.1015);
-
-    TGraphErrors * graph1 = new TGraphErrors(x.size(), &x[0], &R[0], &err_x[0], &err_R[0]);
-    graph1->GetXaxis()->SetTitle("x [cm]");
-    graph1->GetYaxis()->SetTitle("R [s^{-1}]");
-    
-    graph1->Fit(tf1, "m");
-    graph1->Draw("ap");
-    canvas1->SaveAs("../graphs/rate_x.png");
-
-    cout << "Chi^2:" << tf1->GetChisquare() << ", number of DoF: " << tf1->GetNDF() << 
-    " (Probability: " << tf1->GetProb() << ")." << endl;
-
-    float ref_mi_rho = 0.1035;
-    cout << endl <<"Test z su mi: " << endl;
-    z_test(tf1->GetParameter("#mu")/rho, ref_mi_rho, tf1->GetParError(1)/rho);
+    float err1 = sqrt(err_net_area.at(2)*err_net_area.at(2) + err_Ssum1*err_Ssum1);
+    cout << endl <<"Test z (S1*S2/(A*t)): " << endl << Ssum1 << " +/- " << err_Ssum1 << endl;
+    z_test(net_area.at(2), Ssum1, err1);
     cout << endl;
 
-    
+    float err2 = sqrt(err_net_area.at(2)*err_net_area.at(2) + err_Ssum2*err_Ssum2);
+    cout << endl <<"Test z (S1*S2*dt/t): " << endl << Ssum2 << " +/- " << err_Ssum2 << endl;
+    z_test(net_area.at(2), Ssum2, err2);
+    cout << endl;
 }

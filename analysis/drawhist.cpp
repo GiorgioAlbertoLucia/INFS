@@ -6,6 +6,7 @@
 #include <TROOT.h>
 #include <TH1I.h>
 #include <TLatex.h>
+#include <THStack.h>
 
 #include <iostream>
 #include <fstream>
@@ -16,7 +17,7 @@
 
 using namespace std;
 
-TH1I* fillhist(const char * file_name)
+void draw_on_canvas(const char * file_name, TCanvas& canvas, TH1I& hist, const int n)
 {
     ifstream file(file_name);
 
@@ -31,32 +32,39 @@ TH1I* fillhist(const char * file_name)
         data.push_back(entry2);
     }
 
-    TH1I * hist = new TH1I("hist", "hist", 1024, 0, 1023);
-    for (int i = 0; i < channel.size(); i++) hist->Fill(channel.at(i), data.at(i));
+    //cout << endl;
+    //for(int i = 0; i < channel.size(); i++) cout << channel.at(i) << data.at(i) << endl;
 
-    TCanvas * canvas = new TCanvas("canvas", "canvas", 800, 1000);
-    hist->Draw();
-    canvas->SaveAs("prova.png");
+    hist.Reset();
+    hist.SetFillColor(38);
+    for (int i = 0; i < channel.size(); i++) hist.Fill(channel.at(i), data.at(i));
 
-    return hist;
+    cout << endl << hist.GetMean() << endl;
+
+    canvas.cd(n);
+    hist.Draw("b");
+    canvas.SetGrid();
+    canvas.Update();
 }
 
 void drawhist()
 {
-    
+    TH1I * h1 = new TH1I("h1", "Spectrum Co57", 1024, 0, 1023);         
+    TH1I * h2 = new TH1I("h2", "Spectrum Co60", 1024, 0, 1023);         
+    TH1I * h3 = new TH1I("h3", "Spectrum Cs137", 1024, 0, 1023);        
+    TH1I * h4 = new TH1I("h4", "Spectrum Na22", 1024, 0, 1023);         
+    TH1I * h5 = new TH1I("h5", "Spectrum background", 1024, 0, 1023);   
+    TH1I * h6 = new TH1I("h6", "Spectrum rock", 1024, 0, 1023);         
 
-    TCanvas * canvas = new TCanvas("canvas", "canvas", 800, 1000);
+    TCanvas * canvas = new TCanvas("canvas", "canvas", 700, 900);
     canvas->Divide(1, 6);
     
-    canvas->cd(1);
-    TH1I * hist1 = fillhist("../data_ascii/spectrumCo57");
-    hist1->Draw();
-    delete hist1;
-
-    canvas->cd(2);
-    TH1I * hist2 = fillhist("../data_ascii/spectrumNa22");
-    hist2->Draw();
-    delete hist2;
+    draw_on_canvas("../data_ascii/spectrum_Co57.txt", *canvas, *h1, 1);
+    draw_on_canvas("../data_ascii/spectrum_Co60.txt", *canvas, *h2, 2);
+    draw_on_canvas("../data_ascii/spectrum_Cs137.txt", *canvas, *h3, 3);
+    draw_on_canvas("../data_ascii/spectrum_Na22.txt", *canvas, *h4, 4);
+    draw_on_canvas("../data_ascii/spectrum_fondo.txt", *canvas, *h5, 5);
+    draw_on_canvas("../data_ascii/spectrum_sasso.txt", *canvas, *h6, 6);
 
     canvas->SaveAs("../graphs/histograms.png");
     canvas->SaveAs("../graphs/histograms.pdf");

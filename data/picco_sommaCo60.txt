@@ -1,4 +1,4 @@
-peak            gross_area      net_area        live_time
-I_photoel       304464          186672          2907.31
-II_photoel      220053          170000          2907.31
-sum             2322            1632            2907.31                                                                                     
+peak            gross_area      net_area        live_time   err_live_time
+I_photoel       304464          186672          2907.31     0.01
+II_photoel      220053          170000          2907.31     0.01
+sum             2322            1632            2907.31     0.01                                                                                

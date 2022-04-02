@@ -6,6 +6,7 @@
 #include <TROOT.h>
 #include <TH1.h>
 #include <TLatex.h>
+#include <TLegend.h>
 
 #include <iostream>
 #include <fstream>
@@ -56,14 +57,14 @@ void analysis2()
         float t_value = chn_centroid.at(i) + FWHM.at(i)/2;
         float t_value_MeV = a + b * t_value + c*t_value*t_value;
         float err_t_value = sqrt(pow(err_centroid.at(i), 2) + pow(err_FWHM.at(i)/2, 2));
-        float err_t_MeV = sqrt(err_a*err_a + t_value*err_b*err_b + t_value*t_value*t_value*t_value*err_c*err_c 
-                        + (b + 2*c*t_value)*err_t_value*err_t_value);
+        float err_t_MeV = sqrt(err_a*err_a + t_value*t_value*err_b*err_b + t_value*t_value*t_value*t_value*err_c*err_c 
+                        + (b*b + 4*c*c*t_value*t_value)*err_t_value*err_t_value);
 
         float b_value = chn_centroid.at(i) - FWHM.at(i)/2;
         float b_value_MeV = a + b * b_value + c*b_value*b_value;
         float err_b_value = sqrt(pow(err_centroid.at(i), 2) + pow(err_FWHM.at(i)/2, 2));
-        float err_b_MeV = sqrt(err_a*err_a + b_value*err_b*err_b + b_value*b_value*b_value*b_value*err_c*err_c 
-                        + (b + 2*c*b_value)*err_b_value*err_b_value);
+        float err_b_MeV = sqrt(err_a*err_a + b_value*b_value*err_b*err_b + b_value*b_value*b_value*b_value*err_c*err_c 
+                        + (b*b + 4*c*c*b_value*b_value)*err_b_value*err_b_value);
 
         cout << b_value_MeV << "+-" << err_b_MeV << ", " <<  t_value_MeV << "+-" << err_t_MeV << endl;
 
@@ -89,13 +90,16 @@ void analysis2()
     cout << endl;
 
     TCanvas * canvas1 = new TCanvas("centroide [CHN]", "E [MeV]", 500, 5, 500, 600);
+    canvas1->SetGrid();
     
     ////////////////// FIT 1 ///////////////////////
     TF1 * tf1 = new TF1("tf1", "[0]+[1]*x+[2]*x*x", 0, 15);
+    tf1->SetLineColor(38);
     tf1->SetParameter(0, -0.02);
     tf1->SetParameter(1, 0.0017);
 
     TGraphErrors * graph1 = new TGraphErrors(chn_centroid.size(), &chn_centroid[0], &ref_centroid[0], &err_centroid[0]);
+    graph1->SetTitle("Calibrazione");
     graph1->GetXaxis()->SetTitle("centroide [CHN]");
     graph1->GetYaxis()->SetTitle("E [MeV]");
     
@@ -109,20 +113,23 @@ void analysis2()
     
     ////////////////// FIT 2 ///////////////////////
     TF1 * tf2 = new TF1("tf2", "[0] + [1]/sqrt(x)", 0, 15);
+    tf2->SetLineColor(38);
     tf2->SetParameter(0, 0);
+    tf2->SetParameter(1, 1);
 
     TGraphErrors * graph2 = new TGraphErrors(ref_centroid.size(), &ref_centroid[0], &R[0], 0, &err_R[0]);
+    graph2->SetTitle("Risoluzione");
     graph2->GetXaxis()->SetTitle("E [MeV]");
     graph2->GetYaxis()->SetTitle("R");
     
     graph2->Fit(tf2);
-
-    TLatex latex;
-    latex.SetTextAlign(23);
-    latex.SetTextSize(0.08);
-    latex.DrawLatex(0.5,0.95,"R = p_{0} + #frac{p_{1}}{#sqrt{E}}");
     
     graph2->Draw("ap");
+    TLatex latex;
+    latex.SetTextAlign(10);
+    latex.SetTextSize(0.045);
+    latex.DrawLatex(0.8,0.3,"R = p_{0} + #frac{p_{1}}{#sqrt{E}}");
+
     canvas1->SaveAs("../graphs/risoluzione.png");
     canvas1->SaveAs("../graphs/risoluzione.pdf");
     

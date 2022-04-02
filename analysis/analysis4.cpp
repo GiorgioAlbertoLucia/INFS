@@ -81,11 +81,8 @@ void analysis4()
     float tau = log(2) * halflife_time; 
     float t = 6412;                             // days from when the value was registered (1/5/2004)
 
-    float N_0 = ref_A * tau * 24 * 3600;        // convert days in seconds (N0 = number of nucleons on 1/5/2004)
-    float err_N_0 = err_ref_A * tau * 24 * 3600; 
-
-    float ref_A_today = N_0 * exp(- t / tau) / (tau*24*3600);         // activity today
-    float err_ref_A_today = err_N_0 * exp(- t / tau) / (tau*24*3600);
+    float ref_A_today = ref_A * exp(- t / tau);         // activity today
+    float err_ref_A_today = err_ref_A * exp(- t / tau);
 
     vector<float> err_net_area, R, err_R;            //rate
     float err_net, rate, err_rate;
@@ -94,18 +91,10 @@ void analysis4()
     {   
         err_net = sqrt(2*gross_area.at(i) - net_area.at(i));
         err_net_area.push_back(err_net);
-        if(element.at(i) == string("Cs137-C42"))
-        {
-            rate = net_area.at(i) / live_time.at(i);
-            err_rate = sqrt(pow(err_net_area.at(i)/live_time.at(i), 2)
+        
+        rate = net_area.at(i) / live_time.at(i);
+        err_rate = sqrt(pow(err_net_area.at(i)/live_time.at(i), 2)
                          + pow(err_live_time.at(i) * net_area.at(i), 2) / pow(live_time.at(i), 4));
-        }
-        else if(element.at(i) == string("Cs137-C29"))
-        {
-            rate = net_area.at(i) / live_time.at(i);
-            err_rate = sqrt(pow(err_net_area.at(i)/live_time.at(i), 2)
-                         + pow(err_live_time.at(i) * net_area.at(i), 2) / pow(live_time.at(i), 4));
-        }
         R.push_back(rate);
         err_R.push_back(err_rate);
     }
@@ -128,14 +117,12 @@ void analysis4()
     float err_A = sqrt(pow(err_ref_A_today*R.at(1)/R.at(0), 2) + pow(ref_A_today*err_R.at(1)/R.at(0), 2) 
                     + pow(ref_A_today*R.at(1)*err_R.at(0), 2)/pow(R.at(0), 4));
 
-    float ref_AC29 = 18000;        // value from 1/7/2017, Bq
+    float ref_AC29 = 18000;                                     // value from 1/7/2017, Bq
     float err_ref_AC29 = 5000;
-    float t2 = 1726;                // days from 1/7/2017 and 23/3/2022
+    float t2 = 1726;                                            // days from 1/7/2017 and 23/3/2022
 
-    float N_0C29 = ref_AC29 * (tau * 24 * 3600);        // convert days in seconds (N0 = number of nucleons on 1/5/2004)
-    float err_N_0C29 = err_ref_AC29 * (tau * 24 * 3600); 
-    float ref_AC29_today = N_0C29 * exp(- t2 / tau) / (tau*24*3600);         // activity today
-    float err_ref_AC29_today = err_N_0C29 * exp(- t2 / tau) / (tau*24*3600);  
+    float ref_AC29_today = ref_AC29 * exp(- t2 / tau);          // activity today, Bq
+    float err_ref_AC29_today = err_ref_AC29 * exp(- t2 / tau);  
 
     float err = sqrt(err_ref_AC29_today*err_ref_AC29_today + err_A*err_A);
     cout << "Test z sull'attività della sorgente Cs137-C29 (in Bq)" << endl;
@@ -151,9 +138,9 @@ void analysis4()
     float err_eff = 0.01;
     float fg = 0.851;
 
-    float d = 9.3;
-    float err_d = 0.01;
-    float r = 10.16;
+    float d = 9.3;          // cm
+    float err_d = 0.01;     // cm
+    float r = 2.54;
     float G_appr = r*r/(4*d*d);
     float err_G_appr = r*r/(sqrt(2)*d*d*d)*err_d;
     float G = 0.5 * (1 - cos(atan(r/d)));
@@ -179,12 +166,12 @@ void analysis4()
 
     cout << "Valori dell'attività calcolata con il metodo assoluto: " << endl;
     cout << "G approssimata: " << G_appr << " +/- " << err_G_appr << endl;
-    cout << "Cs137-C42 attività (" << A_abs_appr.at(0)/1000 << "+/-" << err_A_abs_appr.at(0) << ") kBq" << endl;
-    cout << "Cs137-C29 attività (" << A_abs_appr.at(1)/1000 << "+/-" << err_A_abs_appr.at(1) << ") kBq" << endl;
+    cout << "Cs137-C42 attività (" << A_abs_appr.at(0)/1000 << "+/-" << err_A_abs_appr.at(0)/1000 << ") kBq" << endl;
+    cout << "Cs137-C29 attività (" << A_abs_appr.at(1)/1000 << "+/-" << err_A_abs_appr.at(1)/1000 << ") kBq" << endl;
 
     cout << "G esatta: " << G << " +/- " << err_G << endl;
-    cout << "Cs137-C42 attività (" << A_abs.at(0)/1000 << "+/-" << err_A_abs.at(0) << ") kBq" << endl;
-    cout << "Cs137-C29 attività (" << A_abs.at(1)/1000 << "+/-" << err_A_abs.at(1) << ") kBq" << endl;
+    cout << "Cs137-C42 attività (" << A_abs.at(0)/1000 << "+/-" << err_A_abs.at(0)/1000 << ") kBq" << endl;
+    cout << "Cs137-C29 attività (" << A_abs.at(1)/1000 << "+/-" << err_A_abs.at(1)/1000 << ") kBq" << endl;
 
     float err2 = sqrt(err_ref_A_today*err_ref_A_today + err_A_abs.at(0)*err_A_abs.at(0));
     cout << endl << "test z: Cs137-C42 -- G corretto " << endl;
