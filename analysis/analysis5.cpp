@@ -7,7 +7,7 @@
 #include <TF1.h>
 #include <TH1F.h>
 #include <TGraphErrors.h>
-#include <TMath.h>
+#include <TLatex.h>
 
 #include <iostream>
 #include <fstream>
@@ -167,19 +167,26 @@ void analysis5()
     gROOT->SetStyle("Plain");
     gStyle->SetOptFit(1111);
     TCanvas * canvas1 = new TCanvas("canvas1", "R", 500, 500, 500, 600);
+    canvas1->SetGrid();
 
     ////////////////// FIT 1 ///////////////////////
     TF1 * tf1 = new TF1("tf1", "[0]*exp(-[1]*x)", 0, 15);
+    tf1->SetLineColor(38);
     tf1->SetParName(0, "R_{0}");
     tf1->SetParName(1, "#mu");
     tf1->SetParameters(78.6, 0.1015);
 
     TGraphErrors * graph1 = new TGraphErrors(x.size(), &x[0], &R[0], &err_x[0], &err_R[0]);
-    graph1->GetXaxis()->SetTitle("x [cm]");
-    graph1->GetYaxis()->SetTitle("R [s^{-1}]");
+    graph1->SetTitle("#splitline{Coeff. di assorbimento}{R = R_{0} + e^{- #mu x}};x [cm];R [s^{-1}]");
+    graph1->GetYaxis()->SetTitleOffset(1.75);
+    gPad->SetTopMargin(0.15);
+    gPad->SetLeftMargin(0.15);
+    graph1->SetMarkerStyle(21);
+    graph1->SetMarkerSize(0.3);
     
     graph1->Fit(tf1, "m");
     graph1->Draw("ap");
+
     canvas1->SaveAs("../graphs/rate_x.png");
     canvas1->SaveAs("../graphs/rate_x.pdf");
 
@@ -192,18 +199,26 @@ void analysis5()
     cout << endl;
 
     TCanvas * canvas2 = new TCanvas("canvas2", "R", 500, 500, 500, 600);
+    canvas2->SetGrid();
+
     ////////////////// FIT 2 ///////////////////////
     TF1 * tf2 = new TF1("tf1", "[0]*exp(-[1]*x)", 0, 25);
+    tf2->SetLineColor(38);
     tf2->SetParName(0, "R_{0}");
     tf2->SetParName(1, "#frac{#mu}{#rho}");
     tf2->SetParameters(78.6, 0.1015);
 
     TGraphErrors * graph2 = new TGraphErrors(X.size(), &X[0], &R[0], &err_X[0], &err_R[0]);
-    graph2->GetXaxis()->SetTitle("X [g cm^{-2}]");
-    graph2->GetYaxis()->SetTitle("R [s^{-1}]");
+    graph2->SetTitle("#splitline{Coeff. di assorbimento}{R = R_{0} + e^{- #frac{#mu}{#rho} X}};X [g cm^{-2}];R [s^{-1}]");
+    graph2->GetYaxis()->SetTitleOffset(1.75);
+    gPad->SetTopMargin(0.15);
+    gPad->SetLeftMargin(0.15);
+    graph2->SetMarkerStyle(21);
+    graph2->SetMarkerSize(0.3);
     
     graph2->Fit(tf2, "m");
     graph2->Draw("ap");
+
     canvas2->SaveAs("../graphs/rate_x_rho.png");
     canvas2->SaveAs("../graphs/rate_x_rho.pdf");
 

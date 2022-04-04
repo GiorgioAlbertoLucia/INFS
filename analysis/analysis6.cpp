@@ -35,7 +35,7 @@ void z_test(const float exp_value, const float ref_value, const float err)
 
 void analysis6()
 {   
-    //freopen("../output/analysis5.txt", "w", stdout);
+    //freopen("../output/analysis6.txt", "w", stdout);
     fstream file("../data/picco_sommaCo60.txt", fstream::in);
 
     vector<string> peak;

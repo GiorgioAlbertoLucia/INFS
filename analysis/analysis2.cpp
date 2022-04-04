@@ -99,9 +99,10 @@ void analysis2()
     tf1->SetParameter(1, 0.0017);
 
     TGraphErrors * graph1 = new TGraphErrors(chn_centroid.size(), &chn_centroid[0], &ref_centroid[0], &err_centroid[0]);
-    graph1->SetTitle("Calibrazione");
-    graph1->GetXaxis()->SetTitle("centroide [CHN]");
-    graph1->GetYaxis()->SetTitle("E [MeV]");
+    graph1->SetTitle("#splitline{Calibrazione}{E = p_{0} + p_{1} x + p_{2} x^{2}}; centroide [CHN]; E [MeV]");
+    gPad->SetTopMargin(0.15);
+    graph1->SetMarkerStyle(21);
+    graph1->SetMarkerSize(0.3);
     
     graph1->Fit(tf1);
     graph1->Draw("ap");
@@ -118,17 +119,13 @@ void analysis2()
     tf2->SetParameter(1, 1);
 
     TGraphErrors * graph2 = new TGraphErrors(ref_centroid.size(), &ref_centroid[0], &R[0], 0, &err_R[0]);
-    graph2->SetTitle("Risoluzione");
-    graph2->GetXaxis()->SetTitle("E [MeV]");
-    graph2->GetYaxis()->SetTitle("R");
+    graph2->SetTitle("#splitline{Risoluzione}{R = p_{0} + #frac{p_{1}}{#sqrt{E}}};E [MeV];R");
+    gPad->SetTopMargin(0.20);
+    graph2->SetMarkerStyle(21);
+    graph2->SetMarkerSize(0.3);
     
     graph2->Fit(tf2);
-    
     graph2->Draw("ap");
-    TLatex latex;
-    latex.SetTextAlign(10);
-    latex.SetTextSize(0.045);
-    latex.DrawLatex(0.8,0.3,"R = p_{0} + #frac{p_{1}}{#sqrt{E}}");
 
     canvas1->SaveAs("../graphs/risoluzione.png");
     canvas1->SaveAs("../graphs/risoluzione.pdf");

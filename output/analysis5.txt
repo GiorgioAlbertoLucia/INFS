@@ -1,15 +1,31 @@
-A: 9.04432 +/- 0.454488
 
-Experimental value: 1632 +/- 54.8817
+Dati:
+n_spessori  x[cm]       err_x[cm]       gross_area  net_area    live_time[s]    err_live_time[s]	err_net		R[kBq]		err_rate[kBq]		rel_e_rate		X[g/cm^2]	err_X[g/cm^2]
+0		0		0		10590		9409		120		0.01		108.494		0.0784083		0.000904142		0.0115312		0		0
+2		0.42		0.02		10779		9391		189.42		0.01		110.304		0.0495777		0.000582332		0.0117458		4.7628		0.2268
+4		0.84		0.04		11083		9214		307.02		0.01		113.807		0.0300111		0.000370683		0.0123516		9.5256		0.4536
+6		1.26		0.06		8793		6563		387.29		0.01		104.99		0.016946		0.00027109		0.0159974		14.2884		0.6804
+8		1.68		0.08		8461		6436		568.7		0.01		102.401		0.011317		0.000180062		0.0159107		19.0512		0.9072
+10		2.1		0.1		8578		6489		892.15		0.01		103.281		0.00727344		0.000115767		0.0159163		23.814		1.134
 
-Test z (S1*S2/(A*t)): 
-1206.87 +/- 60.904
-1632 +/- 81.9835	1206.87	5.18554	False
+ FCN=2.23483 FROM HESSE     STATUS=OK             10 CALLS         158 TOTAL
+                     EDM=2.49857e-07    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  R_{0}        7.86435e-02   8.60846e-04   1.38561e-07   7.01563e-01
+   2  #mu          1.15110e+00   2.79467e-02   4.49713e-06  -2.43915e-02
+Chi^2:2.23483, number of DoF: 4 (Probability: 0.692657).
 
+Test z su mi: 
+0.101508 +/- 0.00246443	0.1035	-0.808194	True
 
-Test z (S1*S2*dt/t): 
-10915.3 +/- 10915.4
-1632 +/- 10915.6	10915.3	-0.850466	True
+ FCN=2.23483 FROM HESSE     STATUS=OK             10 CALLS          77 TOTAL
+                     EDM=8.66415e-08    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  R_{0}        7.86434e-02   8.60859e-04   1.38553e-07  -2.11311e-01
+   2  #frac{#mu}{#rho}   1.01509e-01   2.46447e-03   3.96565e-07   1.84334e-01
+Chi^2:2.23483, number of DoF: 4 (Probability: 0.692657).
 
-[0mroot [1] .q
-[0m
+Test z su mi/rho: 
+0.101509 +/- 0.0279467	0.1035	-0.0712331	True
