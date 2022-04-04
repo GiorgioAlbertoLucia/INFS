@@ -21,6 +21,7 @@ void analysis1()
     //freopen("../output/analysis1.txt", "w", stdout);
     gROOT->SetStyle("Plain");
     gStyle->SetOptFit(1100);
+    gStyle->SetFitFormat("2.2e");
 
     ifstream file("../data/catena_elettronica.txt");
 

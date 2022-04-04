@@ -166,6 +166,8 @@ void analysis5()
 
     gROOT->SetStyle("Plain");
     gStyle->SetOptFit(1111);
+    gStyle->SetFitFormat("2.2e");
+    
     TCanvas * canvas1 = new TCanvas("canvas1", "R", 500, 500, 500, 600);
     canvas1->SetGrid();
 

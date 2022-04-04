@@ -84,6 +84,7 @@
         "BJT_data.C": "cpp",
         "fitExamples.C": "cpp",
         "Transistor1.C": "cpp",
-        "BJT.C": "cpp"
+        "BJT.C": "cpp",
+        "plotter_forum.C": "cpp"
     }
 }
