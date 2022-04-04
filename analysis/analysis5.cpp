@@ -99,7 +99,7 @@ void z_test_branch(const char * file_name)
 
 void analysis5()
 {   
-    //freopen("../output/analysis5.txt", "w", stdout);
+    freopen("../output/analysis5.txt", "w", stdout);
     fstream file("../data/coeff_ass.txt", fstream::in);
 
     vector<int> n_spessori;
@@ -130,10 +130,10 @@ void analysis5()
         entry8 = sqrt(2*gross_area.at(i) - net_area.at(i));
         err_net_area.push_back(entry8);
         
-        entry9 = net_area.at(i) / (live_time.at(i) * 1000); //kBq
+        entry9 = net_area.at(i) / (live_time.at(i)); //s^-1
         R.push_back(entry9);
-        entry10 = sqrt(pow(err_net_area.at(i)/(live_time.at(i)*1000), 2) 
-                    + pow(net_area.at(i)*err_live_time.at(i)/1000, 2)/pow(live_time.at(i), 4));
+        entry10 = sqrt(pow(err_net_area.at(i)/(live_time.at(i)), 2) 
+                    + pow(net_area.at(i)*err_live_time.at(i), 2)/pow(live_time.at(i), 4));
         err_R.push_back(entry10);
 
         entry11 = err_R.at(i) / R.at(i);
@@ -167,7 +167,7 @@ void analysis5()
     gROOT->SetStyle("Plain");
     gStyle->SetOptFit(1111);
     gStyle->SetFitFormat("2.2e");
-    
+
     TCanvas * canvas1 = new TCanvas("canvas1", "R", 500, 500, 500, 600);
     canvas1->SetGrid();
 
