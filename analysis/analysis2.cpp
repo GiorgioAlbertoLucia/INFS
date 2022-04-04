@@ -19,7 +19,7 @@ using namespace std;
 
 void analysis2()
 {   
-    //freopen("../output/analysis2.txt", "w", stdout);
+    freopen("../output/analysis2.txt", "w", stdout);
     gROOT->SetStyle("Plain");
     gStyle->SetOptFit(1111);
     gStyle->SetFitFormat("2.2e");
