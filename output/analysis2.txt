@@ -6,12 +6,12 @@ Errori b,t
 0.114745+-0.00747451, 0.128897+-0.00748088
 
 Dati:
-chn_entroid[CHN]     FWHM[CHN]   ref_centroid[MeV]    err_centroid[CHN] err_FWHM[CHN]  R              err_R
-799.19		         41.5572		1.333			         0.62		         8.71548		   0.0536472		0.0120873
-704.21		         38.3889		1.173			         0.62		         8.71548		   0.0560649		0.0125111
-404.96		         30.1233		0.6617			      0.62		         8.71548		   0.0768821		0.01769
-315.49		         24.8183		0.511			         0.62		         8.71548		   0.0816704		0.0219457
-82.51		            8.5116		0.1221			      0.62		         8.71548		   0.115904		   0.0866098
+chn_entroid[CHN]    FWHM[CHN]   ref_centroid[MeV]   err_centroid[CHN]
+799.19		41.5572		1.333			0.62		8.71548		0.0536472		0.0120873
+704.21		38.3889		1.173			0.62		8.71548		0.0560649		0.0125111
+404.96		30.1233		0.6617			0.62		8.71548		0.0768821		0.01769
+315.49		24.8183		0.511			0.62		8.71548		0.0816704		0.0219457
+82.51		8.5116		0.1221			0.62		8.71548		0.115904		0.0866098
 
  FCN=4.73539 FROM MIGRAD    STATUS=CONVERGED      93 CALLS          94 TOTAL
                      EDM=3.08617e-09    STRATEGY= 1  ERROR MATRIX UNCERTAINTY   1.2 per cent
@@ -25,6 +25,6 @@ Chi^2:4.73539, number of DoF: 2 (Probability: 0.0936963).
                      EDM=2.09745e-22    STRATEGY= 1      ERROR MATRIX ACCURATE 
   EXT PARAMETER                                   STEP         FIRST   
   NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
-   1  p0           1.50570e-0.   
-Chi^2:0.250437, number of DoF: 3 (Probability: 0.969063). 
-
+   1  p0           1.50570e-02   3.14991e-02   3.99942e-06   1.14508e-09
+   2  p1           4.59751e-02   2.99870e-02   3.80743e-06   5.46739e-10
+Chi^2:0.250437, number of DoF: 3 (Probability: 0.969063).
