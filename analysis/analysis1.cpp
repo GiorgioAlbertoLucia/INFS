@@ -54,8 +54,9 @@ void analysis1()
     tf1->SetLineColor(38);
 
     TGraphErrors * graph1 = new TGraphErrors(Vin.size(), &Vin[0], &Vout[0], &err_Vin[0], &err_Vout[0]);
-    graph1->SetTitle("Catena Elettronica;Vin [V];Vout [V]");
+    graph1->SetTitle("#splitline{Catena Elettronica}{y = p_{0} + p_{1} x};Vin [V];Vout [V]");
     graph1->GetYaxis()->SetTitleOffset(1.4);
+    gPad->SetTopMargin(0.15);
     gPad->SetLeftMargin(0.15);
     graph1->SetMarkerStyle(21);
     graph1->SetMarkerSize(0.3);
@@ -69,11 +70,11 @@ void analysis1()
     " (Probability: " << tf1->GetProb() << ")." << endl;
 
     ////////////////// FIT 2 ///////////////////////
-    TF1 * tf2 = new TF1("tf2", "[0]+[1]*x+[2]*x*x", -15, 15);
+    TF1 * tf2 = new TF1("tf2", "[0]+[1]*x", -15, 15);
     tf2->SetLineColor(38);
 
     TGraphErrors * graph2 = new TGraphErrors(Vin.size(), &Vin[0], &CHN[0], &err_Vin[0], &err_CHN[0]);
-    graph2->SetTitle("#splitline{Catena Elettronica}{y = p_{0} + p_{1} x + p_{2} x^{2}};Vin [V];CHN");
+    graph2->SetTitle("#splitline{Catena Elettronica}{y = p_{0} + p_{1} x};Vin [V];CHN");
     graph2->GetYaxis()->SetTitleOffset(1.75);
     gPad->SetTopMargin(0.15);
     gPad->SetLeftMargin(0.15);

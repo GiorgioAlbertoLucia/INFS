@@ -19,7 +19,7 @@ using namespace std;
 
 void analysis2()
 {   
-    freopen("../output/analysis2.txt", "w", stdout);
+    //freopen("../output/analysis2.txt", "w", stdout);
     gROOT->SetStyle("Plain");
     gStyle->SetOptFit(1111);
     gStyle->SetFitFormat("2.2e");
@@ -40,7 +40,7 @@ void analysis2()
     }
 
     float mean_FWHM = accumulate(FWHM.begin(), FWHM.end(), 0LL) / FWHM.size();
-    for (int i = 0; i < FWHM.size(); i++)   entry5 = pow(FWHM.at(i) - mean_FWHM, 2)/FWHM.size();
+    for (int i = 0; i < FWHM.size(); i++)   entry5 += pow(FWHM.at(i) - mean_FWHM, 2)/FWHM.size();
     entry5 = sqrt(entry5);
 
     float a = -1.50904e-02;
@@ -121,6 +121,8 @@ void analysis2()
 
     TGraphErrors * graph2 = new TGraphErrors(ref_centroid.size(), &ref_centroid[0], &R[0], 0, &err_R[0]);
     graph2->SetTitle("#splitline{Risoluzione}{R = p_{0} + #frac{p_{1}}{#sqrt{E}}};E [MeV];R");
+    graph2->GetYaxis()->SetTitleOffset(1.7);
+    gPad->SetLeftMargin(0.15);
     gPad->SetTopMargin(0.20);
     graph2->SetMarkerStyle(21);
     graph2->SetMarkerSize(0.3);

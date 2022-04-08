@@ -57,8 +57,8 @@ void analysis6()
     
     vector<float> err_net_area;
     float entry6, Ssum1, err_Ssum1, Ssum2, err_Ssum2;            
-    float dt = 0.001;                   // s
-    float err_dt = 0.001;
+    float dt = 0.000001;                   // s
+    float err_dt = 0.000001;
 
     float Aold = 19.9;                  // kBq
     float err_Aold = 1;

@@ -77,9 +77,9 @@ void analysis4()
     float ref_A = 37000;                        // Bq = s^-1   
     float err_ref_A = 5000;
 
-    float halflife_time = 11004.75;             // t1/2 in days
+    float halflife_time = 30.15*365;            // t1/2 in days
     float tau = log(2) * halflife_time; 
-    float t = 6412;                             // days from when the value was registered (1/5/2004)
+    float t = 6536;                             // days from when the value was registered (1/5/2004)
 
     float ref_A_today = ref_A * exp(- t / tau);         // activity today
     float err_ref_A_today = err_ref_A * exp(- t / tau);
@@ -186,4 +186,9 @@ void analysis4()
     float err5 = sqrt(err_ref_AC29_today*err_ref_AC29_today + err_A_abs_appr.at(1)*err_A_abs_appr.at(1));
     cout << endl << "test z: Cs137-C29 -- G approssimato " << endl;
     z_test(A_abs_appr.at(1), ref_AC29_today, err5);
+
+    cout << endl << "Valore attuale dell'attività (dato di riferimento)" << endl;
+    cout << "A = (" << ref_A_today/1000 << " +/- " << err_ref_A_today/1000 << ") kBq. " << endl;
+
+    cout << endl << endl << err_ref_AC29_today << endl;
 }
