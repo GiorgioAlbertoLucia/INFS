@@ -85,6 +85,7 @@
         "fitExamples.C": "cpp",
         "Transistor1.C": "cpp",
         "BJT.C": "cpp",
-        "plotter_forum.C": "cpp"
+        "plotter_forum.C": "cpp",
+        "NaIresolution.C": "cpp"
     }
 }

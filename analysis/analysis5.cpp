@@ -211,7 +211,7 @@ void analysis5()
     tf2->SetParameters(78.6, 0.1015);
 
     TGraphErrors * graph2 = new TGraphErrors(X.size(), &X[0], &R[0], &err_X[0], &err_R[0]);
-    graph2->SetTitle("#splitline{Coeff. di assorbimento}{R = R_{0} + e^{- #frac{#mu}{#rho} X}};X [g cm^{-2}];R [s^{-1}]");
+    graph2->SetTitle("#splitline{Coeff. di assorbimento}{R = R_{0} e^{- #frac{#mu}{#rho} X}};X [g cm^{-2}];R [s^{-1}]");
     graph2->GetYaxis()->SetTitleOffset(1.75);
     gPad->SetTopMargin(0.15);
     gPad->SetLeftMargin(0.15);

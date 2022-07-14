@@ -1,30 +1,9 @@
 Errori b,t 
-1.29851+-0.0128983, 1.37002+-0.0133184
-1.13831+-0.0120771, 1.20407+-0.0123946
-0.636736+-0.0104597, 0.687609+-0.0105668
-0.490528+-0.0102104, 0.532262+-0.0102732
-0.114745+-0.00989315, 0.128897+-0.00989796
 
 Dati:
-chn_entroid[CHN]    FWHM[CHN]   ref_centroid[MeV]   err_centroid[CHN]
-799.19		41.5572		1.333			0.62		11.7146		0.0536472		0.0139088
-704.21		38.3889		1.173			0.62		11.7146		0.0560649		0.0147533
-404.96		30.1233		0.6617			0.62		11.7146		0.0768821		0.0224696
-315.49		24.8183		0.511			0.62		11.7146		0.0816704		0.0283447
-82.51		8.5116		0.1221			0.62		11.7146		0.115904		0.114614
+chn_entroid[CHN]    FWHM[CHN]   ref_centroid[MeV]   err_centroid[CHN]			err_FWHM[CHN]			dE[MeV]			err_dE[MeV]			R			err_R
 
- FCN=4.73539 FROM MIGRAD    STATUS=CONVERGED      93 CALLS          94 TOTAL
-                     EDM=3.08617e-09    STRATEGY= 1  ERROR MATRIX UNCERTAINTY   1.2 per cent
-  EXT PARAMETER                                   STEP         FIRST   
-  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
-   1  p0          -1.50904e-02   1.52583e-03   1.08006e-06  -5.92528e-02
-   2  p1           1.65597e-03   8.15871e-06  -8.10726e-09  -6.79977e+01
-   3  p2           4.05620e-08   8.80029e-09   9.90443e-12  -6.21365e+04
-Chi^2:4.73539, number of DoF: 2 (Probability: 0.0936963).
- FCN=0.150829 FROM MIGRAD    STATUS=CONVERGED      36 CALLS          37 TOTAL
-                     EDM=4.84067e-22    STRATEGY= 1      ERROR MATRIX ACCURATE 
-  EXT PARAMETER                                   STEP         FIRST   
-  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
-   1  p0           1.40828e-02   3.93185e-02   5.39203e-06  -3.37163e-09
-   2  p1           4.67968e-02   3.81920e-02   5.23754e-06  -3.64331e-09
-Chi^2:0.150829, number of DoF: 3 (Probability: 0.985107).
+Chi^2:0, number of DoF: 0 (Probability: 0).
+Chi^2:0, number of DoF: 0 (Probability: 0).
+[0mroot [1] .q
+[0m
